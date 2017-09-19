@@ -55,6 +55,13 @@
               (map vector)
               set)))))
 
+(deftest seq-query
+  (let [data [1 2 3]]
+    (is (= (seq (o/for-query 
+                  (d/query data _ _ ?val)
+                  ?val))
+            (seq [1 2 3])))))
+
 (o/defrule parent [data ?parent ?child]
   (o/and
     (d/query data ?cid :name ?child)
